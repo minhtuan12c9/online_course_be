@@ -29,11 +29,6 @@ public class Course {
     @Column(name = "cover_image", length = 250)
     private String coverImage;
 
-    @Column(name = "instructor_id")
-    private Long instructorId;
-
-    @Column(name = "is_paid", nullable = false)
-    private Boolean isPaid = true;
 
     @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
@@ -41,5 +36,7 @@ public class Course {
     @Column(name = "total_duration_minutes", nullable = false)
     private Integer totalDurationMinutes = 0;
 
-
+    @ManyToOne
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id")
+    private Instructor instructor; // Liên kết với giảng viên
 }

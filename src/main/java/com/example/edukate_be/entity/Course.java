@@ -1,5 +1,6 @@
 package com.example.edukate_be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,4 +41,8 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     private Instructor instructor; // Liên kết với giảng viên
+
+    @OneToMany(mappedBy = "course")
+    @JsonIgnoreProperties("course")
+    private List<Chapter> chapters;
 }

@@ -45,7 +45,7 @@ public class CourseService {
         course.setDescription(addCourseRequest.getDescription());
         course.setCoverImage(imgUrl);
 
-        // Tìm giảng viên theo ID
+        //
         Long instructorId = addCourseRequest.getInstructorId();
         Optional<Instructor> optionalInstructor = instructorRepository.findById(instructorId);
 

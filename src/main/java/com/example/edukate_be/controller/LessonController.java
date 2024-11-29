@@ -1,10 +1,10 @@
 package com.example.edukate_be.controller;
 
 import com.example.edukate_be.dto.AddChapterRequest;
-import com.example.edukate_be.dto.AddCourseRequest;
+import com.example.edukate_be.dto.AddLessonRequest;
 import com.example.edukate_be.entity.Chapter;
-import com.example.edukate_be.entity.Course;
-import com.example.edukate_be.service.ChapterService;
+import com.example.edukate_be.entity.Lesson;
+import com.example.edukate_be.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("api/chapter")
-public class ChapterController {
+@RequestMapping("api/lesson")
+public class LessonController {
     @Autowired
-    private ChapterService chapterService;
+    private LessonService lessonService;
 
     @GetMapping("")
-    public ResponseEntity<List<Chapter>> getAllChapters() {
+    public ResponseEntity<List<Lesson>> getAllLessons() {
         try {
-            List<Chapter> list = chapterService.getAllChapters();
+            List<Lesson> list = lessonService.getAllLessons();
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-    @GetMapping("/{courseId}")
-    public ResponseEntity<List<Chapter>> getChaptersByCourseId(@PathVariable("courseId") long courseId) {
+    @GetMapping("/{chapterId}")
+    public ResponseEntity<List<Lesson>> getLessonsByChapterId(@PathVariable("chapterId") long chapterId) {
         try {
-            List<Chapter> list = chapterService.getChaptersByCourseId(courseId);
+            List<Lesson> list = lessonService.getLessonsByChapterId(chapterId);
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -40,13 +40,12 @@ public class ChapterController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addChapter(@RequestBody AddChapterRequest addChapterRequest){
+        public ResponseEntity<String> addLesson(@RequestBody AddLessonRequest addLessonRequest){
         try{
-            chapterService.addChapter(addChapterRequest);
+            lessonService.addLesson(addLessonRequest);
             return ResponseEntity.ok("Thêm thành công");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-
 }

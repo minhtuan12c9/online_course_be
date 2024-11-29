@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "chapter")
 @Getter
@@ -24,5 +26,9 @@ public class Chapter {
 
     @Column(length = 500)
     private String description;
+
+    @OneToMany(mappedBy = "chapter")
+    @JsonIgnoreProperties("chapter")
+    private List<Lesson> lessons;
 
 }

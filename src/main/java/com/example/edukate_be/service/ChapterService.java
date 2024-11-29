@@ -29,6 +29,15 @@ public class ChapterService {
         return chapterRepository.findAll();
     }
 
+    public List<Chapter> getChaptersByCourseId(long courseId) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            return course.getChapters(); // Giả sử `Course` có liên kết tới `Chapter` với kiểu `OneToMany`
+        }
+        return List.of();
+    }
+
     public void addChapter(AddChapterRequest addChapterRequest) {
 
         // Tạo mới đối tượng Chapter
@@ -44,7 +53,6 @@ public class ChapterService {
             throw new IllegalArgumentException("Instructor with ID " + courseId + " does not exist.");
         }
 
-        // Gán giảng viên cho khóa học
         chapter.setCourse(optionalCourse.get());
 
         // Lưu khóa học vào cơ sở dữ liệu

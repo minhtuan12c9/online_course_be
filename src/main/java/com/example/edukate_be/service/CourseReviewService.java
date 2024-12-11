@@ -2,6 +2,7 @@ package com.example.edukate_be.service;
 
 import com.example.edukate_be.dto.AddCourseReviewRequest;
 import com.example.edukate_be.dto.AddOneUserRequest;
+import com.example.edukate_be.entity.Chapter;
 import com.example.edukate_be.entity.Course;
 import com.example.edukate_be.entity.CourseReview;
 import com.example.edukate_be.entity.User;
@@ -29,6 +30,15 @@ public class CourseReviewService {
 
     public List<CourseReview> getAllCourseReviews() {
         return courseReviewRepository.findAll();
+    }
+
+    public List<CourseReview> getReviewsByCourseId(long courseId) {
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (courseOptional.isPresent()) {
+            Course course = courseOptional.get();
+            return course.getCourseReviews(); // Giả sử `Course` có liên kết tới `Chapter` với kiểu `OneToMany`
+        }
+        return List.of();
     }
 
     public void addCourseReview(AddCourseReviewRequest addCourseReviewRequest){

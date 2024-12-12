@@ -1,5 +1,6 @@
 package com.example.edukate_be.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jdk.jfr.ContentType;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class LessonContent {
 
     @Id
@@ -22,5 +24,6 @@ public class LessonContent {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lesson_id", nullable = false)
+    @JsonIgnoreProperties("lessonContents")
     private Lesson lesson;
 }

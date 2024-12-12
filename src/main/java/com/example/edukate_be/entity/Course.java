@@ -41,7 +41,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("instructor")
+    @JsonIgnoreProperties("courses")
     private Instructor instructor; // Liên kết với giảng viên
 
     @OneToMany(mappedBy = "course")
@@ -51,4 +51,8 @@ public class Course {
     @OneToMany(mappedBy = "course")
     @JsonIgnoreProperties("course")
     private List<CourseReview> courseReviews;
+
+    @OneToMany(mappedBy = "course")
+    @JsonIgnoreProperties("course")
+    private List<UserCourse> userCourses;
 }

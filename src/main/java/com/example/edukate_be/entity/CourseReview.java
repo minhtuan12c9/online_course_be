@@ -1,5 +1,6 @@
 package com.example.edukate_be.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class CourseReview {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
-    @JsonIgnoreProperties("courseReviews")
+    @JsonBackReference
     private Course course;
 
     @ManyToOne(fetch = FetchType.LAZY)

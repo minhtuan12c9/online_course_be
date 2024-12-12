@@ -42,4 +42,7 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<CourseReview> courseReviews;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private List<UserCourse> userCourses;
 }

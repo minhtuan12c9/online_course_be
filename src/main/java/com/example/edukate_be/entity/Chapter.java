@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "chapter")
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Chapter {
 
     @Id
@@ -19,6 +20,7 @@ public class Chapter {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnoreProperties("chapters")
     private Course course;
 
     @Column(nullable = false, length = 250)

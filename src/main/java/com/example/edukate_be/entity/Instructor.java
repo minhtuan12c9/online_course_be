@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Tự động tăng

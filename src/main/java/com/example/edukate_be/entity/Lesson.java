@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "lesson")
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Lesson {
 
     @Id
@@ -25,6 +26,7 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "chapter_id", nullable = false)
+    @JsonIgnoreProperties("lessons")
     private Chapter chapter;
 
     @OneToMany(mappedBy = "lesson")

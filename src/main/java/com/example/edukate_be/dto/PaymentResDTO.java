@@ -9,7 +9,19 @@ import java.io.Serializable;
 @Setter
 public class PaymentResDTO implements Serializable {
 
-    private String status;
-    private String message;
-    private String URL;
+    private String paymentUrl;
+    private String vnpTxnRef;
+
+    public PaymentResDTO(String paymentUrl, String vnpTxnRef) {
+        this.paymentUrl = paymentUrl;
+        this.vnpTxnRef = vnpTxnRef;
+    }
+
+    public String getPaymentUrl() {
+        return paymentUrl;
+    }
+
+    public String getVnpTxnRef() {
+        return vnpTxnRef;
+    }
 }

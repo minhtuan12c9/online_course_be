@@ -21,7 +21,7 @@ import java.util.*;
 public class PaymentController {
 
     @GetMapping("/pay")
-    public String getPay(@RequestParam("amount") long amount, HttpServletRequest request) throws UnsupportedEncodingException {
+    public String getPay(@RequestParam("amount") long amount, @RequestParam("courseId") long courseId, HttpServletRequest request) throws UnsupportedEncodingException {
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -42,7 +42,7 @@ public class PaymentController {
 
         vnp_Params.put("vnp_BankCode", bankCode);
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "Thanh toan khoa hoc:" + courseId);
         vnp_Params.put("vnp_OrderType", orderType);
 
         vnp_Params.put("vnp_Locale", "vn");

@@ -53,9 +53,10 @@ public class UserService {
             Optional<User> existingUserOptional = userRepository.findById(userId);
             if (existingUserOptional.isPresent()) {
                 User existingUser = existingUserOptional.get();
+                System.out.println(updateUserRequest);
 
-                if(updateUserRequest.getFullName() != null && !updateUserRequest.getFullName().isEmpty()){
-                    existingUser.setFullname(updateUserRequest.getFullName());
+                if(updateUserRequest.getFullname() != null && !updateUserRequest.getFullname().isEmpty()){
+                    existingUser.setFullname(updateUserRequest.getFullname());
                 }
 
                 if(updateUserRequest.getPassword() != null && !updateUserRequest.getPassword().isEmpty()){

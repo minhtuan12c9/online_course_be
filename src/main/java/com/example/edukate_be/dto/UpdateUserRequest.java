@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class UpdateUserRequest {
-    private String fullName;
+    private String fullname;
     private String password;
     private MultipartFile avatar;
 }

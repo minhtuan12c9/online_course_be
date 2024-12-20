@@ -6,6 +6,7 @@ import com.example.edukate_be.entity.Chapter;
 import com.example.edukate_be.entity.Course;
 import com.example.edukate_be.entity.Lesson;
 import com.example.edukate_be.repository.ChapterRepository;
+import com.example.edukate_be.repository.CourseRepository;
 import com.example.edukate_be.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class LessonService {
 
     @Autowired
     private ChapterRepository chapterRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
@@ -50,8 +54,11 @@ public class LessonService {
         }
 
         lesson.setChapter(chapterOptional.get());
-
         // Lưu khóa học vào cơ sở dữ liệu
         lessonRepository.save(lesson);
+
+        Course course = chapterOptional.get().getCourse();
+        course.setTotalDurationMinutes(course.getTotalDurationMinutes() + addLessonRequest.getDurationMinutes());
+        courseRepository.save(course);
     }
 }

@@ -32,4 +32,8 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson")
     @JsonIgnoreProperties("lesson")
     private List<LessonContent> lessonContents;
+
+    @OneToMany(mappedBy = "lesson")
+    @JsonIgnoreProperties("lesson")
+    private List<UserProgress> userProgress;
 }

@@ -85,4 +85,8 @@ public class CourseService {
             throw new RuntimeException("Lỗi khi lưu trữ tệp ảnh: " + e.getMessage());
         }
     }
+
+    public List<Course> searchCoursesByName(String name) {
+        return courseRepository.findByNameCourse(name.trim());
+    }
 }

@@ -28,6 +28,10 @@ public class UserCourseService {
     @Autowired
     private UserRepository userRepository;
 
+    public List<UserCourse> getAllCourses() {
+        return userCourseRepository.findAll();
+    }
+
     public void addUserCourse(AddUserCourseRequest addUserCourseRequest){
         UserCourse userCourse = new UserCourse();
         userCourse.setEnrollmentDate(LocalDateTime.now());

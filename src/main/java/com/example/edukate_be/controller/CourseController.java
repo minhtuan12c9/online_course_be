@@ -47,4 +47,21 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchCoursesByName(@RequestParam("name") String name) {
+        try {
+            List<Course> courses = courseService.searchCoursesByName(name);
+            if (!courses.isEmpty()) {
+                return ResponseEntity.ok(courses);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Không tìm thấy khóa học nào với tên: " + name);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Đã xảy ra lỗi trong khi tìm kiếm khóa học: " + e.getMessage());
+        }
+    }
+
 }

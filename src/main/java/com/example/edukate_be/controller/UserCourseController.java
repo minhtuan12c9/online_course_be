@@ -2,11 +2,13 @@ package com.example.edukate_be.controller;
 
 import com.example.edukate_be.dto.AddCourseReviewRequest;
 import com.example.edukate_be.dto.AddUserCourseRequest;
+import com.example.edukate_be.dto.InfoMyCourseResponse;
 import com.example.edukate_be.entity.Course;
 import com.example.edukate_be.entity.CourseReview;
 import com.example.edukate_be.entity.UserCourse;
 import com.example.edukate_be.service.CourseService;
 import com.example.edukate_be.service.UserCourseService;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,9 +48,9 @@ public class UserCourseController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<UserCourse>> getAllCourses() {
+    public ResponseEntity<List<InfoMyCourseResponse>> getAllCourses(@RequestParam("userId") long userId) {
         try {
-            List<UserCourse> list = userCourseService.getAllCourses();
+            List<InfoMyCourseResponse> list = userCourseService.getAllCourses(userId);
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

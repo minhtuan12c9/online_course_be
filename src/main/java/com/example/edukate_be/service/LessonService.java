@@ -69,7 +69,7 @@ public class LessonService {
 
     @Transactional
     public void deleteLesson(Long lessonId) {
-        lessonContentRepository.deleteById(lessonId);
+        lessonContentRepository.deleteLessonContentByLessonId(lessonId);
         lessonRepository.deleteById(lessonId);
     }
 }

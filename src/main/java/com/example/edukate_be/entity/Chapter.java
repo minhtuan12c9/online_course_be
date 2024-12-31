@@ -29,7 +29,7 @@ public class Chapter {
     @Column(length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "chapter")
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("chapter")
     private List<Lesson> lessons;
 

@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ChapterRepository extends JpaRepository<Chapter, Long> {
     List<Chapter> findAll();
     Optional<Chapter> findById(long id);
+
     void deleteById(long id);
 
 }

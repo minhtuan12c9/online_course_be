@@ -5,8 +5,8 @@ import com.example.edukate_be.dto.AddCourseRequest;
 import com.example.edukate_be.entity.Chapter;
 import com.example.edukate_be.entity.Course;
 import com.example.edukate_be.entity.Instructor;
-import com.example.edukate_be.repository.ChapterRepository;
-import com.example.edukate_be.repository.CourseRepository;
+import com.example.edukate_be.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,12 @@ public class ChapterService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private LessonRepository lessonRepository;
+
+    @Autowired
+    private LessonContentRepository lessonContentRepository;
 
     public Optional<Chapter> getChapterById(Long id) {
         return chapterRepository.findById(id);
@@ -57,5 +63,11 @@ public class ChapterService {
 
         // Lưu khóa học vào cơ sở dữ liệu
         chapterRepository.save(chapter);
+    }
+
+    @Transactional
+    public void deleteChapter(Long chapterId) {
+        lessonRepository.deleteLessonByChapterId(chapterId);
+        chapterRepository.deleteById(chapterId);
     }
 }

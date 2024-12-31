@@ -49,4 +49,13 @@ public class ChapterController {
         }
     }
 
+    @DeleteMapping("/remove/{chapterId}")
+    public ResponseEntity<String> deleteChapter(@PathVariable Long chapterId) {
+        try {
+            chapterService.deleteChapter(chapterId);
+            return ResponseEntity.ok("Xóa thành công");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

@@ -19,5 +19,6 @@ public interface LessonContentRepository extends JpaRepository<LessonContent, Lo
 
     @Modifying
     @Query("DELETE FROM LessonContent lc WHERE lc.lesson.id = :lessonId ")
-    void deleteLessonByLessonContentId(Long lessonId);
+    void deleteLessonContentByLessonId(Long lessonId);
+
 }

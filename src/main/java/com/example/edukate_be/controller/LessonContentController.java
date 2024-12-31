@@ -39,4 +39,14 @@ public class LessonContentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @DeleteMapping("/remove/{lessonContentId}")
+    public ResponseEntity<String> deleteLessonContent(@PathVariable Long lessonContentId) {
+        try {
+            lessonContentService.deleteLessonContent(lessonContentId);
+            return ResponseEntity.ok("Xóa thành công");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

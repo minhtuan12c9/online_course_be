@@ -92,6 +92,8 @@ public class UserCourseService {
         }
         userCourse.setCourse(optionalCourse.get());
 
+        // Create user progress
+
         userCourseRepository.save(userCourse);
     }
 

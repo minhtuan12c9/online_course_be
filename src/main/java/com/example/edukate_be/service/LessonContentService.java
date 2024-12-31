@@ -7,6 +7,7 @@ import com.example.edukate_be.entity.Lesson;
 import com.example.edukate_be.entity.LessonContent;
 import com.example.edukate_be.repository.LessonContentRepository;
 import com.example.edukate_be.repository.LessonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,10 @@ public class LessonContentService {
 
         // Lưu khóa học vào cơ sở dữ liệu
         lessonContentRepository.save(lessonContent);
+    }
+
+    @Transactional
+    public void deleteLessonContent(Long lessonContentId) {
+        lessonContentRepository.deleteById(lessonContentId);
     }
 }

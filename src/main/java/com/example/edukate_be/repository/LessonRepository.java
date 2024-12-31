@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
     List<Lesson> findAll();
     Optional<Lesson> findById(long id);
+
     void deleteById(long id);
 }

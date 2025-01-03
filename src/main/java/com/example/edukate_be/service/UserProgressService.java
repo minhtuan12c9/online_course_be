@@ -41,7 +41,7 @@ public class UserProgressService {
 
             existingUserProgress = existingUserProgressOptional.get();
             if(existingUserProgress.getIsCompleted() == 1){
-                return "Completed";
+                return "Done";
             }
 
             if(updateUserProgressRequest.getTimeSpentMinutes() == null)
@@ -57,9 +57,22 @@ public class UserProgressService {
             if (newMinutes >= lesson.getDurationMinutes()) {
                 existingUserProgress.setTimeSpentMinutes(lesson.getDurationMinutes());
                 existingUserProgress.setIsCompleted(1);
+                // làm logic mở khoá bài học tiếp theo: lấy id tiếp theo gần nhất (id là 1 số)
+                // Tìm bài học tiếp theo
+                Optional<Lesson> nextLessonOptional = lessonRepository.findNextLessonById(lessonId);
+                if (nextLessonOptional.isPresent()) {
+                    Lesson nextLesson = nextLessonOptional.get();
+                    Optional<UserProgress> nextUserProgressOptional = userProgressRepository.findByUserIdAndLessonId(userId, nextLesson.getId());
+
+                    if (nextUserProgressOptional.isPresent()) {
+                        UserProgress nextUserProgress = nextUserProgressOptional.get();
+                        nextUserProgress.setIsUnlock(1); // Mở khóa bài học tiếp theo
+                        userProgressRepository.save(nextUserProgress);
+                        return "Completed";
+                    }
+                }
             }else
                 existingUserProgress.setTimeSpentMinutes(newMinutes);
-
             return "Updated";
         } catch (Exception e) {
             System.out.println("error::" + e);

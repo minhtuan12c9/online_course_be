@@ -33,7 +33,7 @@ public class Lesson {
     @JsonIgnoreProperties("lesson")
     private List<LessonContent> lessonContents;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("lesson")
     private List<UserProgress> userProgress;
 }

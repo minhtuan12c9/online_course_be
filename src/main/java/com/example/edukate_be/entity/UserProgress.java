@@ -34,6 +34,9 @@ public class UserProgress {
     @Column(name = "is_completed", columnDefinition = "INT DEFAULT 0")
     private Integer isCompleted;
 
+    @Column(name = "is_unlock", columnDefinition = "INT DEFAULT 0")
+    private Integer isUnlock;
+
     @Column(name = "time_spent_minutes", columnDefinition = "INT DEFAULT 0")
     private Integer timeSpentMinutes;
 }

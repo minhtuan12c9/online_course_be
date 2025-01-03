@@ -5,10 +5,7 @@ import com.example.edukate_be.dto.AddLessonRequest;
 import com.example.edukate_be.entity.Chapter;
 import com.example.edukate_be.entity.Course;
 import com.example.edukate_be.entity.Lesson;
-import com.example.edukate_be.repository.ChapterRepository;
-import com.example.edukate_be.repository.CourseRepository;
-import com.example.edukate_be.repository.LessonContentRepository;
-import com.example.edukate_be.repository.LessonRepository;
+import com.example.edukate_be.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,9 @@ public class LessonService {
 
     @Autowired
     private LessonContentRepository lessonContentRepository;
+
+    @Autowired
+    private UserProgressRepository userProgressRepository;
 
     public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
@@ -69,7 +69,8 @@ public class LessonService {
 
     @Transactional
     public void deleteLesson(Long lessonId) {
-        lessonContentRepository.deleteLessonContentByLessonId(lessonId);
+//        lessonContentRepository.deleteLessonContentByLessonId(lessonId);
+//        userProgressRepository.deleteUserProgressBylessonId(lessonId);
         lessonRepository.deleteById(lessonId);
     }
 }

@@ -67,7 +67,7 @@ public class ChapterService {
 
     @Transactional
     public void deleteChapter(Long chapterId) {
-        lessonRepository.deleteLessonByChapterId(chapterId);
+//        lessonRepository.deleteLessonByChapterId(chapterId);
         chapterRepository.deleteById(chapterId);
     }
 }

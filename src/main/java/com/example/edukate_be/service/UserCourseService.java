@@ -4,10 +4,7 @@ import com.example.edukate_be.dto.AddCourseReviewRequest;
 import com.example.edukate_be.dto.AddUserCourseRequest;
 import com.example.edukate_be.dto.InfoMyCourseResponse;
 import com.example.edukate_be.entity.*;
-import com.example.edukate_be.repository.CourseRepository;
-import com.example.edukate_be.repository.CourseReviewRepository;
-import com.example.edukate_be.repository.UserCourseRepository;
-import com.example.edukate_be.repository.UserRepository;
+import com.example.edukate_be.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +24,9 @@ public class UserCourseService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserProgressRepository userProgressRepository;
 
     public List<InfoMyCourseResponse> getAllCourses(long userId) {
         List<InfoMyCourseResponse> listMyCourse = new ArrayList<>();
@@ -92,9 +92,34 @@ public class UserCourseService {
         }
         userCourse.setCourse(optionalCourse.get());
 
-        // Create user progress
-
         userCourseRepository.save(userCourse);
+
+        // Create user progress
+        List<Chapter> chapters = userCourse.getCourse().getChapters();
+        List<UserProgress> userProgressList = new ArrayList<>();
+        int index = 0;
+
+        for (Chapter chapter : chapters) {
+            List<Lesson> lessons = chapter.getLessons();
+            for (Lesson lesson : lessons) {
+                UserProgress userProgress = new UserProgress();
+                userProgress.setUser(userCourse.getUser());
+                userProgress.setLesson(lesson);
+                userProgress.setLastViewed(LocalDateTime.now());
+                userProgress.setTimeSpentMinutes(0);
+                userProgress.setIsCompleted(0);
+
+                // Mở khóa bài học đầu tiên, các bài khác thì khóa
+                userProgress.setIsUnlock(index == 0 ? 1 : 0);
+
+                userProgressList.add(userProgress);
+                index++;
+            }
+        }
+
+// Lưu danh sách UserProgress vào cơ sở dữ liệu
+        userProgressRepository.saveAll(userProgressList);
+
     }
 
     public Optional<UserCourse> getUserCourseByCourseIdAndUserId(long courseId, long userId) {

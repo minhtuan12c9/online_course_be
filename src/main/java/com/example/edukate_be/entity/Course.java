@@ -44,15 +44,15 @@ public class Course {
     @JsonIgnoreProperties("courses")
     private Instructor instructor; // Liên kết với giảng viên
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("course")
     private List<Chapter> chapters;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("course")
     private List<CourseReview> courseReviews;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("course")
     private List<UserCourse> userCourses;
 }

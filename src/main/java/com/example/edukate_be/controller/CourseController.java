@@ -1,7 +1,10 @@
 package com.example.edukate_be.controller;
 
 import com.example.edukate_be.dto.AddCourseRequest;
+import com.example.edukate_be.dto.UpdateCourseRequest;
+import com.example.edukate_be.dto.UpdateUserRequest;
 import com.example.edukate_be.entity.Course;
+import com.example.edukate_be.entity.User;
 import com.example.edukate_be.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,4 +67,25 @@ public class CourseController {
         }
     }
 
+    @PutMapping("/update/{courseId}")
+    public ResponseEntity<Course> updateCourse(@PathVariable Long courseId, @ModelAttribute UpdateCourseRequest updateCourseRequest){
+        try{
+            Course updateCourse = courseService.updateCourse(courseId, updateCourseRequest);
+            return ResponseEntity.ok(updateCourse);
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping("/remove/{courseId}")
+    public ResponseEntity<String> deleteCourse(@PathVariable Long courseId) {
+        try {
+            courseService.deleteCourse(courseId);
+            return ResponseEntity.ok("Xóa thành công");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
